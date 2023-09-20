@@ -8,7 +8,7 @@ import { BaseGuard } from "@adonisjs/auth/build/src/Guards/Base";
 import { EmitterContract } from "@ioc:Adonis/Core/Event";
 import { HttpContextContract } from "@ioc:Adonis/Core/HttpContext";
 import { string } from "@poppinss/utils/build/helpers";
-import { createHash, createPrivateKey, KeyObject } from "crypto";
+import { createHash, KeyObject } from "crypto";
 import { ProviderToken } from "@adonisjs/auth/build/src/Tokens/ProviderToken";
 import JwtAuthenticationException from "../Exceptions/JwtAuthenticationException";
 import {
@@ -24,6 +24,8 @@ import {
     JWTLogoutOptions,
 } from "@ioc:Adonis/Addons/Jwt";
 import { JwtProviderToken } from "../ProviderToken/JwtProviderToken";
+
+declare var TextEncoder: any
 
 /**
  * JWT token represents a persisted token generated for a given user.

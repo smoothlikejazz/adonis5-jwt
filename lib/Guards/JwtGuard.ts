@@ -179,7 +179,7 @@ export class JWTGuard extends BaseGuard<"jwt"> implements JWTGuardContract<any, 
             providerToken = await this.getProviderToken(token);
         }
 
-        const providerUser = await this.getUserById(payload.data!);
+        const providerUser = await this.getUserById(payload!);
 
         /**
          * Marking user as logged in
@@ -438,7 +438,7 @@ export class JWTGuard extends BaseGuard<"jwt"> implements JWTGuardContract<any, 
      * Converts key string to Buffer
      */
     private generateKey(hash: string): KeyObject {
-        return createPrivateKey(Buffer.from(hash));
+        return new TextEncoder().encode(hash);
     }
 
     /**
@@ -535,7 +535,7 @@ export class JWTGuard extends BaseGuard<"jwt"> implements JWTGuardContract<any, 
      * Returns user from the user session id
      */
     private async getUserById(payloadData: JWTCustomPayloadData) {
-        const authenticatable = await this.provider.findById(payloadData.userId);
+        const authenticatable = await this.provider.findById(payloadData.uid);
 
         if (!authenticatable.user) {
             throw new JwtAuthenticationException("No user found from payload");

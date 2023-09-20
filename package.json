@@ -19,7 +19,8 @@
     "lint": "eslint . --ext=.ts",
     "format": "prettier --write .",
     "release": "np",
-    "version": "npm run build"
+    "version": "npm run build",
+    "prepare": "npm run build"
   },
   "author": "Max Galbusera",
   "license": "MIT",

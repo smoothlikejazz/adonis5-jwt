@@ -503,14 +503,8 @@ export class JWTGuard extends BaseGuard<"jwt"> implements JWTGuardContract<any, 
             audience: this.config.audience,
         });
 
-        const { data, exp }: JWTCustomPayload = payload;
+        const { exp }: JWTCustomPayload = payload;
 
-        if (!data) {
-            throw new JwtAuthenticationException("Invalid JWT payload");
-        }
-        if (!data.userId) {
-            throw new JwtAuthenticationException("Invalid JWT payload: missing userId");
-        }
         if (exp && exp < Math.floor(DateTime.now().toSeconds())) {
             throw new JwtAuthenticationException("Expired JWT token");
         }
